@@ -1,0 +1,153 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const timesheetFileInput = document.getElementById('timesheetFile');
+    const dropZone = document.getElementById('dropZone');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const clearFileBtn = document.getElementById('clearFile');
+    const headlessToggle = document.getElementById('headlessToggle');
+    const runBtn = document.getElementById('runBtn');
+    const logConsole = document.getElementById('logConsole');
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+
+    let selectedFile = null;
+
+    // Restore saved email
+    const savedEmail = localStorage.getItem('celoxis_email');
+    if (savedEmail) emailInput.value = savedEmail;
+
+    // Toggle password visibility
+    togglePasswordBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        togglePasswordBtn.title = isPassword ? 'Hide Password' : 'Show Password';
+    });
+
+    // File drop zone
+    dropZone.addEventListener('click', () => timesheetFileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && /\.txt$/i.test(files[0].name)) {
+            selectFile(files[0]);
+        } else {
+            appendLog('[WARN] Please drop a valid .txt timesheet file.', 'warn');
+        }
+    });
+    timesheetFileInput.addEventListener('change', () => {
+        if (timesheetFileInput.files.length > 0) selectFile(timesheetFileInput.files[0]);
+    });
+
+    function selectFile(file) {
+        selectedFile = file;
+        fileName.textContent = file.name;
+        fileInfo.classList.remove('hidden');
+        dropZone.style.display = 'none';
+    }
+
+    clearFileBtn.addEventListener('click', () => {
+        selectedFile = null;
+        timesheetFileInput.value = '';
+        fileInfo.classList.add('hidden');
+        dropZone.style.display = '';
+    });
+
+    // SSE log stream
+    let eventSource = null;
+
+    function connectSSE() {
+        if (eventSource) eventSource.close();
+        eventSource = new EventSource('/api/celoxis/logs');
+        eventSource.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'log') appendLog(data.message);
+                else if (data.type === 'status') setStatus(data.message);
+            } catch (e) {
+                appendLog(event.data);
+            }
+        };
+        eventSource.onerror = () => appendLog('[WARN] Lost connection to server. Reconnecting...', 'warn');
+    }
+
+    connectSSE();
+
+    function appendLog(message, forceClass = null) {
+        const p = document.createElement('p');
+        p.classList.add('log-entry');
+        if (forceClass) {
+            p.classList.add(`log-${forceClass}`);
+        } else if (message.includes('[OK]') || message.includes('✅')) {
+            p.classList.add('log-ok');
+        } else if (message.includes('[WARN]') || message.includes('⚠️')) {
+            p.classList.add('log-warn');
+        } else if (message.includes('[ERROR]') || message.includes('[FATAL') || message.includes('[!]')) {
+            p.classList.add('log-error');
+        } else if (message.includes('→')) {
+            p.classList.add('log-highlight');
+        }
+        p.textContent = message;
+        logConsole.appendChild(p);
+        logConsole.scrollTop = logConsole.scrollHeight;
+    }
+
+    function setStatus(status) {
+        statusDot.className = `status-dot ${status}`;
+        statusText.textContent = status === 'running' ? 'Running' : 'Idle';
+        if (status === 'idle') {
+            runBtn.disabled = false;
+            runBtn.querySelector('span').textContent = 'Run Automation';
+        }
+    }
+
+    runBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!email || !password) {
+            appendLog('[ERROR] Please enter your Celoxis email and password.', 'error');
+            return;
+        }
+        if (!selectedFile) {
+            appendLog('[ERROR] Please upload a timesheet .txt file.', 'error');
+            return;
+        }
+
+        localStorage.setItem('celoxis_email', email);
+
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('timesheetFile', selectedFile);
+        formData.append('headless', headlessToggle.checked ? 'true' : 'false');
+
+        runBtn.disabled = true;
+        runBtn.querySelector('span').textContent = 'Running...';
+
+        appendLog('');
+        appendLog('==============================================');
+        appendLog(`Starting timesheet automation: ${selectedFile.name}`);
+        appendLog('==============================================');
+        appendLog('');
+
+        try {
+            const response = await fetch('/api/celoxis/run', { method: 'POST', body: formData });
+            if (!response.ok) {
+                const errData = await response.json();
+                appendLog(`[ERROR] ${errData.error}`, 'error');
+                runBtn.disabled = false;
+                runBtn.querySelector('span').textContent = 'Run Automation';
+            }
+        } catch (err) {
+            appendLog(`[ERROR] Network error: ${err.message}`, 'error');
+            runBtn.disabled = false;
+            runBtn.querySelector('span').textContent = 'Run Automation';
+        }
+    });
+});

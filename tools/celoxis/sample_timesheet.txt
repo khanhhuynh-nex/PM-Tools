@@ -1,0 +1,25 @@
+## Mon 13 Apr 2025:
+*MacLoc Development - (2h)
+    • Task description here
+*UEOL Testers (SO12372, PO11357) - (6h)
+    • Task description here
+
+## Tue 14 Apr 2025:
+*MacLoc Development - (4h)
+    • Task description here
+*Surface Case Refresh - (4h)
+    • Task description here
+
+## Wed 15 Apr 2025:
+*MacLoc Development - (8h)
+    • Task description here
+
+## Thu 16 Apr 2025:
+*MacLoc Development - (4h)
+    • Task description here
+*DermaSensor Ops Support - (4h)
+    • Task description here
+
+## Fri 17 Apr 2025:
+*MacLoc Development - (8h)
+    • Task description here
