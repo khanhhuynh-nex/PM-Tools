@@ -1,0 +1,51 @@
+# TIMESHEET DETAILS
+# #Tue 21  Apr 2025: 
+*MacLoc Development - (50%)
+	Facilitated Weekly Meeting.
+	Follow up and support
+*2026 Sustaining (SCNs, CO, Engineering Work) - (12.5%)
+	Facilitated Weekly meeting.
+*Multi-Chamber Connectors - (12.5%)
+	Facilitated Weekly meeting.
+*Surface Case Refresh - (25%)
+	Support and follow up
+	Update pricing of plastic part
+	
+## Wed 22  Apr 2025: 
+*MacLoc Development - (81.25%)
+	Follow up
+	Support on Ink supplier on-site visit.
+*2026 Sustaining (SCNs, CO, Engineering Work) - (6.25%)
+	Follow up
+*Multi-Chamber Connectors - (6.25%)
+	Follow up
+	Draft pFMEA, MVP
+*Surface Case Refresh - (6.25%)
+	Facilitated Weekly meeting.
+
+# #Thu 23  Apr 2025: 
+*MacLoc Development - (81.25%)
+	Follow and support on pad print issue
+	Follow and support tape issue
+*2026 Sustaining (SCNs, CO, Engineering Work) - (6.25%)
+	CO follow up
+*Multi-Chamber Connectors - (6.25%)
+	Follow up
+*Surface Case Refresh - (6.25%)
+	Follow up
+	
+## Fri 24  Apr 2025: 
+*MacLoc Development - (81.25%)
+	Update project status/timeline
+	Pad print issue follow up and support
+	Mail to SR to update status
+*UEOL Testers (SO12372, PO11357) - (6.25%)
+	CO follow up
+*2026 Sustaining (SCNs, CO, Engineering Work) - (6.25%)
+	CO follow up
+	Update project status/timeline
+*Multi-Chamber Connectors - (12.5%)
+	Updated project status/timeline
+	Updated pFMEA & route CO-54605
+*Surface Case Refresh - (6.25%)
+	Updated project status/timeline

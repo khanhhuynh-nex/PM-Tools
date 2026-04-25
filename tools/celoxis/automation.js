@@ -183,13 +183,40 @@ async function runCeloxisAutomation(filePath, headless, email, password, log) {
         const isLoginVisible = await passwordInput.isVisible({ timeout: 10000 }).catch(() => false);
 
         if (isLoginVisible) {
-            log('Logging in...');
+            log('Login page detected. Filling in credentials...');
             const emailInput = page.locator('input[type="text"], input[type="email"]').first();
             await emailInput.fill(email);
             await passwordInput.first().fill(password);
-            await page.locator('button').filter({ hasText: /^Login$/i }).first().click();
-            await page.waitForTimeout(5000);
-            log('Login done (saved for next run).');
+
+            if (headless) {
+                // In headless mode attempt an automated click, but reCAPTCHA will likely block it.
+                // If this fails, re-run with "Show Browser" enabled so you can click Login yourself.
+                await page.locator('button').filter({ hasText: /^Login$/i }).first().click();
+                log('Waiting for login redirect (headless mode)...');
+                await page.waitForURL(url => !url.includes('/login'), { timeout: 30000 }).catch(() => {});
+            } else {
+                // Headed mode: credentials are pre-filled — user must click Login (and solve any CAPTCHA).
+                log('');
+                log('=======================================================');
+                log('ACTION REQUIRED: Click the "Login" button in the browser');
+                log('window. If a CAPTCHA appears, complete it too.');
+                log('Waiting up to 2 minutes...');
+                log('=======================================================');
+                log('');
+                await page.waitForURL(url => !url.includes('/login'), { timeout: 120000 }).catch(() => {});
+            }
+
+            const currentUrl = page.url();
+            if (currentUrl.includes('/login')) {
+                await page.screenshot({ path: path.join(__dirname, 'error_login_failed.png') });
+                log('Saved error_login_failed.png');
+                const hint = headless
+                    ? 'Re-run with "Show Browser" enabled so you can click Login and complete any CAPTCHA manually. The session is then saved for future runs.'
+                    : 'Login did not complete within 2 minutes. Check credentials and try again.';
+                throw new Error(`Login failed — still on login page after waiting. ${hint}`);
+            }
+
+            log('Login done (session saved for next run).');
         } else {
             log('Already logged in from previous run.');
         }
