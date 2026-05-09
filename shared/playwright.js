@@ -7,12 +7,26 @@ async function launchFreshBrowser() {
     return { browser, context, page };
 }
 
-async function launchPersistentBrowser(profilePath, headless = false) {
-    const context = await chromium.launchPersistentContext(profilePath, {
-        headless,
+async function launchPersistentBrowser(profilePath) {
+    const launchOptions = {
+        headless: false,
         viewport: { width: 1920, height: 1080 },
         locale: 'en-US',
-    });
+        args: ['--disable-blink-features=AutomationControlled'],
+    };
+
+    // Prefer system Chrome over Playwright's Chromium — reCAPTCHA trusts real Chrome fingerprints.
+    // Falls back to bundled Chromium if Chrome isn't installed.
+    let context;
+    try {
+        context = await chromium.launchPersistentContext(profilePath, {
+            ...launchOptions,
+            channel: 'chrome',
+        });
+    } catch {
+        context = await chromium.launchPersistentContext(profilePath, launchOptions);
+    }
+
     const page = context.pages[0] || await context.newPage();
     return { context, page };
 }

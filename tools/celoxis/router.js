@@ -20,7 +20,7 @@ router.post('/run', upload.single('timesheetFile'), async (req, res) => {
         return res.status(409).json({ error: 'Automation is already running.' });
     }
 
-    const { email, password, headless } = req.body;
+    const { email, password } = req.body;
     const file = req.file;
 
     if (!email || !password) {
@@ -35,7 +35,7 @@ router.post('/run', upload.single('timesheetFile'), async (req, res) => {
     sse.broadcast('running', 'status');
 
     try {
-        await runCeloxisAutomation(file.path, headless === 'true', email, password, sse.log);
+        await runCeloxisAutomation(file.path, email, password, sse.log);
     } catch (err) {
         sse.log(`[FATAL ERROR] ${err.message}`);
     } finally {

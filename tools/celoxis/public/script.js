@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInfo = document.getElementById('fileInfo');
     const fileName = document.getElementById('fileName');
     const clearFileBtn = document.getElementById('clearFile');
-    const headlessToggle = document.getElementById('headlessToggle');
     const runBtn = document.getElementById('runBtn');
     const logConsole = document.getElementById('logConsole');
     const statusDot = document.getElementById('statusDot');
@@ -125,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('email', email);
         formData.append('password', password);
         formData.append('timesheetFile', selectedFile);
-        formData.append('headless', headlessToggle.checked ? 'true' : 'false');
 
         runBtn.disabled = true;
         runBtn.querySelector('span').textContent = 'Running...';

@@ -2,7 +2,11 @@ const path = require('path');
 const { launchPersistentBrowser } = require('../../shared/playwright');
 const { parseTimesheet } = require('./parser');
 
-const BROWSER_PROFILE = path.join(__dirname, 'browser_profile');
+// Each user gets their own profile so team members don't share sessions
+function getProfilePath(email) {
+    const safe = email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_');
+    return path.join(__dirname, `browser_profile_${safe}`);
+}
 
 const DAY_COLUMN = { Sun: 4, Mon: 5, Tue: 6, Wed: 7, Thu: 8, Fri: 9, Sat: 10 };
 
@@ -154,7 +158,7 @@ async function navigateToCorrectWeek(page, filePath, firstDayKey, log) {
     log('   ⚠️ Week navigation ended. Will attempt data entry on current week.');
 }
 
-async function runCeloxisAutomation(filePath, headless, email, password, log) {
+async function runCeloxisAutomation(filePath, email, password, log) {
     const timesheetData = parseTimesheet(filePath);
 
     if (!timesheetData || Object.keys(timesheetData).length === 0) {
@@ -172,11 +176,11 @@ async function runCeloxisAutomation(filePath, headless, email, password, log) {
         }
     }
 
-    const { context, page } = await launchPersistentBrowser(BROWSER_PROFILE, headless);
+    const { context, page } = await launchPersistentBrowser(getProfilePath(email));
 
     try {
         log('Opening Celoxis...');
-        await page.goto('https://app.celoxis.com/psa/login', { waitUntil: 'networkidle' });
+        await page.goto('https://app.celoxis.com/psa/login', { waitUntil: 'domcontentloaded' });
         await page.waitForTimeout(2000);
 
         const passwordInput = page.locator('input[type="password"]');
@@ -188,32 +192,30 @@ async function runCeloxisAutomation(filePath, headless, email, password, log) {
             await emailInput.fill(email);
             await passwordInput.first().fill(password);
 
-            if (headless) {
-                // In headless mode attempt an automated click, but reCAPTCHA will likely block it.
-                // If this fails, re-run with "Show Browser" enabled so you can click Login yourself.
-                await page.locator('button').filter({ hasText: /^Login$/i }).first().click();
-                log('Waiting for login redirect (headless mode)...');
-                await page.waitForURL(url => !url.includes('/login'), { timeout: 30000 }).catch(() => {});
-            } else {
-                // Headed mode: credentials are pre-filled — user must click Login (and solve any CAPTCHA).
-                log('');
-                log('=======================================================');
-                log('ACTION REQUIRED: Click the "Login" button in the browser');
-                log('window. If a CAPTCHA appears, complete it too.');
-                log('Waiting up to 2 minutes...');
-                log('=======================================================');
-                log('');
-                await page.waitForURL(url => !url.includes('/login'), { timeout: 120000 }).catch(() => {});
-            }
+            // Bring browser to front and show a banner so the user knows to click Login
+            await page.bringToFront();
+            await page.evaluate(() => {
+                const b = document.createElement('div');
+                b.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#1a56db;color:#fff;padding:14px 20px;text-align:center;z-index:99999;font-size:15px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.4)';
+                b.textContent = '✅ Credentials pre-filled by automation — please click the Login button below to continue.';
+                document.body.prepend(b);
+            }).catch(() => {});
 
-            const currentUrl = page.url();
-            if (currentUrl.includes('/login')) {
+            log('');
+            log('=======================================================');
+            log('ACTION REQUIRED: A browser window just opened with your');
+            log('credentials already filled in. Switch to it and click');
+            log('the "Login" button. Complete any CAPTCHA if prompted.');
+            log('Waiting up to 5 minutes...');
+            log('=======================================================');
+            log('');
+
+            await page.waitForURL(url => !url.includes('/login'), { timeout: 300000 }).catch(() => {});
+
+            if (page.url().includes('/login')) {
                 await page.screenshot({ path: path.join(__dirname, 'error_login_failed.png') });
                 log('Saved error_login_failed.png');
-                const hint = headless
-                    ? 'Re-run with "Show Browser" enabled so you can click Login and complete any CAPTCHA manually. The session is then saved for future runs.'
-                    : 'Login did not complete within 2 minutes. Check credentials and try again.';
-                throw new Error(`Login failed — still on login page after waiting. ${hint}`);
+                throw new Error('Login did not complete in 5 minutes. Switch to the browser window and click Login.');
             }
 
             log('Login done (session saved for next run).');
@@ -221,8 +223,46 @@ async function runCeloxisAutomation(filePath, headless, email, password, log) {
             log('Already logged in from previous run.');
         }
 
+        await page.screenshot({ path: path.join(__dirname, 'debug_post_login.png') });
+        log('Saved debug_post_login.png (post-login state).');
+
         log('Navigating to Timesheet...');
         await page.goto('https://app.celoxis.com/psa/timesheet', { waitUntil: 'domcontentloaded' });
+
+        // Celoxis may redirect to login if the cached session expired
+        if (page.url().includes('/login')) {
+            log('Session expired — cached login is stale. Re-logging in...');
+            const emailInput2 = page.locator('input[type="text"], input[type="email"]').first();
+            await emailInput2.fill(email);
+            await page.locator('input[type="password"]').first().fill(password);
+
+            await page.bringToFront();
+            await page.evaluate(() => {
+                const b = document.createElement('div');
+                b.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#d97706;color:#fff;padding:14px 20px;text-align:center;z-index:99999;font-size:15px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.4)';
+                b.textContent = '⚠️ Session expired — credentials pre-filled. Please click Login to continue.';
+                document.body.prepend(b);
+            }).catch(() => {});
+
+            log('');
+            log('=======================================================');
+            log('ACTION REQUIRED: Session expired. Switch to the browser');
+            log('window — credentials are pre-filled. Click Login.');
+            log('Waiting up to 5 minutes...');
+            log('=======================================================');
+            log('');
+            await page.waitForURL(url => !url.includes('/login'), { timeout: 300000 }).catch(() => {});
+
+            if (page.url().includes('/login')) {
+                await page.screenshot({ path: path.join(__dirname, 'error_login_failed.png') });
+                log('Saved error_login_failed.png');
+                throw new Error('Re-login after session expiry failed. Switch to the browser window and click Login.');
+            }
+
+            log('Re-login successful. Navigating to Timesheet...');
+            await page.goto('https://app.celoxis.com/psa/timesheet', { waitUntil: 'domcontentloaded' });
+        }
+
         await page.waitForSelector('table', { timeout: 30000 }).catch(async () => {
             await page.screenshot({ path: path.join(__dirname, 'error_timesheet_timeout.png') });
             log('Saved error_timesheet_timeout.png');
