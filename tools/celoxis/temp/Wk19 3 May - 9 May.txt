@@ -1,0 +1,79 @@
+# TIMESHEET DETAILS
+## Mon 04 May 2026: 
+*MacLoc Development - (3h)
+	Updated project status and timeline.
+	Meeting with US/COOK on pad print issue.
+*Surface Case Refresh - (4h)
+	Updated project status and timeline.
+	Summarize update and send to US site
+	Follow developmen release status of molded part
+	Involve Process Engineer
+	Involve Ms. Nha
+	Set up Epicor for master batch.
+	Release packaging material.
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Updated project status and timeline.
+*Multi-Chamber Connectors - (0.5h)
+	Updated project status and timeline.
+	Follow route PQ protocol
+*1General Meeting - (1h)
+	Facilitated Weekly meeting
+	
+
+# #Tue 05 May 2026: 
+*MacLoc Development - (2h)
+	Facilitated Weekly Meeting.
+	Meeting and supplier pad print
+	Inform US site about OQPQ of body parts.
+*2026 Sustaining (SCNs, CO, Engineering Work) - (1h)
+	Facilitated Weekly meeting.
+*Multi-Chamber Connectors - (2h)
+	Facilitated Weekly meeting.
+	Update pFMEA QD-V135
+*Surface Case Refresh - (3h)
+	Support and follow up
+	Mail to the team to prepare the silicon tubing
+	
+## Wed 06 May 2026: 
+*MacLoc Development - (4h)
+	Follow up
+	Update pad print status to the US site
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Follow up
+*Multi-Chamber Connectors - (0.5h)
+	Follow up
+*Surface Case Refresh - (3h)
+	Facilitated Weekly meeting.
+	Mail to confirm the price of silicon tube
+	Mail US about drawing of molded part
+	Route PR 585 for modify tooling of manifold
+	
+
+# #Thu 07 May 2026:
+*MacLoc Development - (4h)
+	Follow and support
+	Meeting and follow pad print DOE
+	Inform Sarah to support on tape of pad print
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	CO follow up
+*Multi-Chamber Connectors - (0.5h)
+	Follow up
+*Surface Case Refresh - (2h)
+	Follow up
+	Aligned with An and team for set up BOM
+	Route DFMEA 705463 (D223435)
+ *Non-project time (1h)
+	Update project plan D218870 
+
+	
+##Fri 08 May 2026:
+*MacLoc Development - (4h)
+	Update project status/timeline
+	Pad print issue follow up and support
+*2026 Sustaining (SCNs, CO, Engineering Work) - (1.5h)
+	CO follow up
+	Update project status/timeline
+*Multi-Chamber Connectors - (1h)
+	Update project status/timeline
+*Surface Case Refresh - (1.5h)
+	Update project status/timeline
