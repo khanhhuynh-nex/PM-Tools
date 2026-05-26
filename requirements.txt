@@ -1,0 +1,36 @@
+# PM Automation Hub — Setup Requirements
+
+## 1. Install Node.js (required, manual step)
+Download and install the LTS version from: https://nodejs.org
+This is the only software you need to install manually.
+
+## 2. Copy the project folder
+Copy the entire "PM Tools" folder to the new computer.
+You can skip these subfolders (large, auto-regenerated):
+  - node_modules/                              (recreated by npm install)
+  - tools/celoxis/browser_profile/             (recreated on first Celoxis login)
+
+## 3. Configure Celoxis credentials
+Edit the file: tools/celoxis/.env
+Set your real login details:
+  CEL_EMAIL=your-celoxis-email@example.com
+  CEL_PASS=your-celoxis-password
+
+Epicor credentials are entered directly in the browser UI — no config file needed.
+
+## 4. Run the app
+Double-click: Start App.bat
+
+On the FIRST run it will automatically:
+  - Run npm install       (installs: express, playwright, multer, xlsx, dotenv)
+  - Install Chromium      (embedded browser used by Playwright, ~150 MB)
+  - Start the server and open http://localhost:3000
+
+On subsequent runs it starts immediately.
+
+## Dependencies (auto-installed, do not install manually)
+  - express    ^4.21.0   — web server
+  - playwright ^1.49.0   — browser automation (includes Chromium)
+  - multer     ^2.1.1    — file upload handling
+  - xlsx       ^0.18.5   — Excel file parsing (Epicor tool)
+  - dotenv     ^16.4.5   — environment variable loading

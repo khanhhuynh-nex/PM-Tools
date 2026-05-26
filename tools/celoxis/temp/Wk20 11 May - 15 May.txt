@@ -1,0 +1,73 @@
+# TIMESHEET DETAILS
+## Mon 11 May 2026: 
+*MacLoc Development - (2h)
+	Updated project status and timeline.
+	Meeting with  the team to align the OQPQ execution plan
+*Surface Case Refresh - (4h)
+	Updated project status and timeline.
+	Meeting with the team on material purchase for PreDV & DVT.
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Updated project status and timeline.
+*Multi-Chamber Connectors - (0.5h)
+	Updated project status and timeline.
+	Raise PR#608 for Rubber seal holder
+*1General Meeting - (1h)
+	Facilitated Weekly meeting
+*DermaSensor Ops Support -(1h)
+	Review and align requirement of U7 EOL
+	
+
+## Tue 12 May 2026: 
+*MacLoc Development - (2h)
+	Facilitated Weekly Meeting.
+	Follow up and support OQPQ of pad print process.
+	Follow and support on OQPQ report of body parts approval
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Facilitated Weekly meeting.
+*Multi-Chamber Connectors - (0.5h)
+	Facilitated Weekly meeting.
+*Surface Case Refresh - (3h)
+	Support and follow up
+*SN General Support (Notes Required) -(1h)
+	Develop the plan of sample build ( 60units) for SN's life test.
+	
+## Wed 13 May 2026: 
+*MacLoc Development - (4h)
+	Follow up and support 
+	Update pad print status to the US site
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+*Surface Case Refresh - (3h)
+	Facilitated Weekly meeting.
+	Raise PR for tooling ( gasket/ silicon tube).
+
+## Thu 14 May 2026:
+*MacLoc Development - (4h)
+	Follow and support
+	Update MVP & MoM and re-route CO.
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+*Surface Case Refresh - (2h)
+	Project follow up
+	Propose the updated project plan
+ *Non-project time (1h)
+	Nordson support on stripped screw/Nut issue
+	
+## Fri 15 May 2026:
+*MacLoc Development - (4h)
+	Update project status/timeline
+	Pad print issue follow up and support
+	Summarize the OQPQ results and align with team
+	Report the this week status to US site
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+	Update project status/timeline
+*Multi-Chamber Connectors - (0.5h)
+	Update project status/timeline
+*Surface Case Refresh - (3.5h)
+	Update project status/timeline
+	Planning for what to accomplish in VN for Surface

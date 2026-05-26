@@ -1,0 +1,80 @@
+# TIMESHEET DETAILS
+## Mon 18 May 2026: 
+*MacLoc Development - (2h)
+	Updated project status and timeline.
+	Meeting to align FAI schedule
+	Align packing method of FAI sample with the US site
+	Update BOM to production run
+	Release MVP ( check MVP with OQPQ report of pad print)
+	Follow up and review OQPQ report of pad print.
+*Surface Case Refresh - (4h)
+	Updated project status and timeline.
+	Align on material qualification plan
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Updated project status and timeline.
+	Project report CO-52284
+*Multi-Chamber Connectors - (0.5h)
+	Updated project status and timeline.
+*1General Meeting - (1h)
+	Facilitated Weekly meeting
+
+##Tue 12 May 2026: 
+*MacLoc Development - (2h)
+	Facilitated Weekly Meeting.
+	Follow OQPQ report of pad print
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Facilitated Weekly meeting.
+*Multi-Chamber Connectors - (0.5h)
+	Facilitated Weekly meeting.
+	Follow with SC, PD on equipment status
+*Surface Case Refresh - (3h)
+	Support and follow up
+*DermaSensor Ops Support(1h)
+	Mail to Ryan about U7 component changing
+	
+##Wed 13 May 2026: 
+*MacLoc Development - (2h)
+	Follow up and support 
+	Follow and support the FAI build
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+*Surface Case Refresh - (5h)
+	Facilitated Weekly meeting.
+	Send quotation of EOL modification of front panel to Shaw
+*DermaSensor Ops Support(1h)
+	Mail to Ryan about U7 component changing
+
+##Thu 14 May 2026:
+*MacLoc Development - (4h)
+	Follow and support the FAI build
+	Summarize the parts/document which need to production release
+	Inform to the team that PO has been updated
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+	Close CR-1457
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+	Follow equipment arrive with Nhi
+*Surface Case Refresh - (2h)
+	Project follow up
+ *DermaSensor Ops Support (1h)
+	Support on Plastic part gate Issue
+
+	
+##Fri 15 May 2026:
+*MacLoc Development - (4h)
+	Update project status/timeline
+	Follow up on FAI sample shipments
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Project follow up
+	Update project status/timeline
+*Multi-Chamber Connectors - (0.5h)
+	Update project status/timeline
+*Surface Case Refresh - (3.5h)
+	Update project status/timeline
+	Preparing T1 samples for SQE to checking
+	Answer email of Sarah about costing new G3
+*Resp Ops Support (Notes Required) - (0.5h)
+	Plan of Res hose tooling qualification
