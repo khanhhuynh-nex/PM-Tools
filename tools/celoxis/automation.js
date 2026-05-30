@@ -210,7 +210,7 @@ async function runCeloxisAutomation(filePath, email, password, log) {
             log('=======================================================');
             log('');
 
-            await page.waitForURL(url => !url.includes('/login'), { timeout: 300000 }).catch(() => {});
+            await page.waitForURL(url => !url.href.includes('/login'), { timeout: 300000 }).catch(() => {});
 
             if (page.url().includes('/login')) {
                 await page.screenshot({ path: path.join(__dirname, 'error_login_failed.png') });
@@ -251,7 +251,7 @@ async function runCeloxisAutomation(filePath, email, password, log) {
             log('Waiting up to 5 minutes...');
             log('=======================================================');
             log('');
-            await page.waitForURL(url => !url.includes('/login'), { timeout: 300000 }).catch(() => {});
+            await page.waitForURL(url => !url.href.includes('/login'), { timeout: 300000 }).catch(() => {});
 
             if (page.url().includes('/login')) {
                 await page.screenshot({ path: path.join(__dirname, 'error_login_failed.png') });

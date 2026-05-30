@@ -1,4 +1,5 @@
 node_modules/
 uploads/
+.env
 tools/celoxis/.env
 tools/celoxis/browser_profile/

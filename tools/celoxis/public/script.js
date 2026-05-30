@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const togglePasswordBtn = document.getElementById('togglePassword');
     const timesheetFileInput = document.getElementById('timesheetFile');
     const dropZone = document.getElementById('dropZone');
     const fileInfo = document.getElementById('fileInfo');
@@ -13,17 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('statusText');
 
     let selectedFile = null;
-
-    // Restore saved email
-    const savedEmail = localStorage.getItem('celoxis_email');
-    if (savedEmail) emailInput.value = savedEmail;
-
-    // Toggle password visibility
-    togglePasswordBtn.addEventListener('click', () => {
-        const isPassword = passwordInput.type === 'password';
-        passwordInput.type = isPassword ? 'text' : 'password';
-        togglePasswordBtn.title = isPassword ? 'Hide Password' : 'Show Password';
-    });
 
     // File drop zone
     dropZone.addEventListener('click', () => timesheetFileInput.click());
@@ -106,23 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     runBtn.addEventListener('click', async () => {
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        if (!email || !password) {
-            appendLog('[ERROR] Please enter your Celoxis email and password.', 'error');
-            return;
-        }
         if (!selectedFile) {
             appendLog('[ERROR] Please upload a timesheet .txt file.', 'error');
             return;
         }
 
-        localStorage.setItem('celoxis_email', email);
-
         const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
         formData.append('timesheetFile', selectedFile);
 
         runBtn.disabled = true;

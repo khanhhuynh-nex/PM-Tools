@@ -1,0 +1,74 @@
+# TIMESHEET DETAILS
+## Mon 22 May 2026: 
+*MacLoc Development - (2h)
+	Updated project status and timeline.
+	Release BLD CO-55460
+	Mail to Sarah to align the packing method for production
+*Surface Case Refresh - (4h)
+	Updated project status and timeline.
+	Answer email of Sarah about costing new G3
+	Align with the team on T1 results
+	Mail to the US site to align T1 results
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Updated project status and timeline.
+*Multi-Chamber Connectors - (0.5h)
+	Updated project status and timeline.
+*1General Meeting - (1h)
+	Facilitated Weekly meeting
+
+## Tue 23 May 2026: 
+*MacLoc Development - (2h)
+	Facilitated Weekly Meeting.
+	Follow and support on production release of parts/docs
+*2026 Sustaining (SCNs, CO, Engineering Work) - (0.5h)
+	Facilitated Weekly meeting.
+*Multi-Chamber Connectors - (0.5h)
+	Facilitated Weekly meeting.
+*Surface Case Refresh - (3h)
+	Support and follow up
+	Raise PR for fixture
+
+## Wed 24 May 2026: 
+*MacLoc Development - (2h)
+	Follow up and support 
+	Production release customer provided documents
+	Follow and support on production release of parts/docs
+*2026 Sustaining (SCNs, CO, Engineering Work) - (1.5h)
+	Project follow up
+	Review the UEOL firmware update with the team
+	Route CR-1866
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+*Surface Case Refresh - (5h)
+	Facilitated Weekly meeting.
+	Project follow up and support
+*Non project time (0.5h)
+	Quotation of Genie Hub
+
+## Thu 25 May 2026:
+*MacLoc Development - (2h)
+	Follow and support production release
+*2026 Sustaining (SCNs, CO, Engineering Work) - (2.5h)
+	Project follow up
+	Project plan of new UEOL tester
+*Multi-Chamber Connectors - (0.5h)
+	Project follow up
+*Surface Case Refresh - (2h)
+	Project follow up
+*DermaSensor Ops Support - (1.5h)
+	Write & Route CO-55566
+ 
+## Fri 26 May 2026:
+*MacLoc Development - (3h)
+	Update project status/timeline
+	Follow and support production release
+*2026 Sustaining (SCNs, CO, Engineering Work) - (3.5h)
+	Project follow up
+	Update and route project plan of UEOL firmware update.
+*Multi-Chamber Connectors - (1.5h)
+	Update project status/timeline
+	Route MVP
+*Surface Case Refresh - (3.5h)
+	Update project status/timeline
+	Answer email from Vincent & Ms. Nha about travel plan & customer provided document
+Answer email from Sarah about landed cost of components

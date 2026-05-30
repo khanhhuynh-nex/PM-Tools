@@ -43,7 +43,7 @@ The router receives the form submission, validates it, responds immediately with
 |---|---|
 | `shared/sse.js` | `createSSEStream()` factory — call once per tool in its router. Returns `{ middleware, broadcast, log }`. Each tool gets an **isolated** stream so two users on different tools don't mix logs. |
 | `shared/upload.js` | `createUploader()` — returns a multer instance that stores uploads in `/uploads/` (auto-deleted after automation). |
-| `shared/playwright.js` | `launchFreshBrowser()` for Epicor (credentials entered per session); `launchPersistentBrowser(profilePath)` for Celoxis (login-once, session cached in `tools/celoxis/browser_profile/`). |
+| `shared/playwright.js` | `launchFreshBrowser()` for Epicor (credentials from `.env`); `launchPersistentBrowser(profilePath)` for Celoxis (login-once, session cached in `tools/celoxis/browser_profile/`). |
 
 ### Automation conventions
 
@@ -54,7 +54,7 @@ The router receives the form submission, validates it, responds immediately with
 
 ### Celoxis-specific details
 
-- **Authentication**: credentials (`CEL_EMAIL` / `CEL_PASS`) come from the UI form per session. The persistent browser profile (`tools/celoxis/browser_profile/`) caches the logged-in session so login only happens on first run or after session expiry.
+- **Authentication**: credentials (`CEL_EMAIL` / `CEL_PASS`) are read from the root `.env` file at startup. The persistent browser profile (`tools/celoxis/browser_profile/`) caches the logged-in session so login only happens on first run or after session expiry.
 - **Timesheet parser** (`tools/celoxis/parser.js`): uses `exec` in a loop (not `split`) to find day headers and work items by regex position, then slices the raw text between match offsets.  
 - **Week navigation**: reads the `Wk\d+` week number from the **filename** and compares against the Celoxis week label (a `<span>`, not a `<button>`). Then finds the `<` / `>` nav buttons by walking up the DOM with XPath.
 - **Column index mapping**: `{ Sun:4, Mon:5, Tue:6, Wed:7, Thu:8, Fri:9, Sat:10 }` — these correspond to `<td>` indices in the Celoxis timesheet table.
@@ -62,7 +62,7 @@ The router receives the form submission, validates it, responds immediately with
 
 ### Epicor-specific details
 
-- **Authentication**: username/password entered per session in the UI, passed directly to Playwright. No session persistence.
+- **Authentication**: credentials (`EPI_USERNAME` / `EPI_PASS`) are read from the root `.env` file at startup. No session persistence.
 - **Excel parsing**: uses the `xlsx` library. Expects sheet named `PART CODE - TABLE FORM`, header row at row 3 (index 2), data from row 4. Duplicate column names get `.1`, `.2` suffixes.
 - **`robustFill` / `robustCombobox`**: try 4 different Playwright locator strategies in sequence before giving up, to handle Epicor's inconsistent label/input DOM structure.
 
@@ -96,7 +96,19 @@ Filename must include the week number: `Wk16 12 Apr - 18 Apr.txt`
 ## Secrets and Gitignored Paths
 
 ```
-tools/celoxis/.env           # not used for auth (credentials come from UI)
+.env                             # root credentials file — never commit
 tools/celoxis/browser_profile/  # Playwright persistent session — never commit
-uploads/                     # temp file landing zone — auto-cleaned
+uploads/                         # temp file landing zone — auto-cleaned
 ```
+
+### `.env` format
+
+```
+CEL_EMAIL=your-celoxis-email@example.com
+CEL_PASS=your-celoxis-password
+
+EPI_USERNAME=your-epicor-username
+EPI_PASS=your-epicor-password
+```
+
+`server.js` calls `require('dotenv').config()` at startup, making these available to all routers via `process.env`.

@@ -20,11 +20,13 @@ router.post('/run', upload.single('excelFile'), async (req, res) => {
         return res.status(409).json({ error: 'Automation is already running.' });
     }
 
-    const { username, password, noValues } = req.body;
+    const username = process.env.EPI_USERNAME;
+    const password = process.env.EPI_PASS;
+    const { noValues } = req.body;
     const file = req.file;
 
     if (!username || !password) {
-        return res.status(400).json({ error: 'Username and password are required.' });
+        return res.status(500).json({ error: 'Epicor credentials not configured in .env file.' });
     }
     if (!file) {
         return res.status(400).json({ error: 'Excel file is required.' });

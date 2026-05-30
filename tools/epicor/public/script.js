@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const togglePasswordBtn = document.getElementById('togglePassword');
     const excelFileInput = document.getElementById('excelFile');
     const dropZone = document.getElementById('dropZone');
     const fileInfo = document.getElementById('fileInfo');
@@ -16,15 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const prNumber = document.getElementById('prNumber');
 
     let selectedFile = null;
-
-    const savedUsername = localStorage.getItem('epicor_username');
-    if (savedUsername) usernameInput.value = savedUsername;
-
-    togglePasswordBtn.addEventListener('click', () => {
-        const isPassword = passwordInput.type === 'password';
-        passwordInput.type = isPassword ? 'text' : 'password';
-        togglePasswordBtn.title = isPassword ? 'Hide Password' : 'Show Password';
-    });
 
     dropZone.addEventListener('click', () => excelFileInput.click());
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -113,19 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     runBtn.addEventListener('click', async () => {
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
         const noValues = noValuesInput.value.trim();
 
-        if (!username || !password) { appendLog('[ERROR] Please enter both Username and Password.', 'error'); return; }
         if (!selectedFile) { appendLog('[ERROR] Please upload an Excel file.', 'error'); return; }
         if (!noValues) { appendLog('[ERROR] Please enter at least one row "No" value.', 'error'); return; }
 
-        localStorage.setItem('epicor_username', username);
-
         const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
         formData.append('noValues', noValues);
         formData.append('excelFile', selectedFile);
 

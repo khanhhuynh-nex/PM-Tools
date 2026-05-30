@@ -20,11 +20,12 @@ router.post('/run', upload.single('timesheetFile'), async (req, res) => {
         return res.status(409).json({ error: 'Automation is already running.' });
     }
 
-    const { email, password } = req.body;
+    const email = process.env.CEL_EMAIL;
+    const password = process.env.CEL_PASS;
     const file = req.file;
 
     if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required.' });
+        return res.status(500).json({ error: 'Celoxis credentials not configured in .env file.' });
     }
     if (!file) {
         return res.status(400).json({ error: 'Timesheet file is required.' });
